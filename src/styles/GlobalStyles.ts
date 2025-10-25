@@ -83,9 +83,11 @@ export const GlobalStyles = createGlobalStyle`
 
   section {
     min-height: 100vh;
-    padding: 4rem 2rem;
-    display: flex;
     align-items: center;
     justify-content: center;
   }
+
+  :root{
+  --sbw: calc(100vw - 100%);
+}
 `;

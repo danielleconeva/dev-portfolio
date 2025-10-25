@@ -74,13 +74,15 @@ const ResumeButton = styled.a`
     color: #000;
     background: transparent;
     border: 0.9px solid rgba(12, 12, 12, 0.15);
+    border-top: none;
+    border-bottom: none;
     text-decoration: none;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     align-self: center;
     white-space: nowrap;
 
     &:hover {
-        background: rgba(75, 75, 75, 0.02);
+        background: rgba(109, 109, 109, 0.02);
         border-color: rgba(0, 0, 0, 0.4);
         gap: 1.2rem;
     }
