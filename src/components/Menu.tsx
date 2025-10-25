@@ -88,8 +88,8 @@ const MenuNumber = styled.span<{ $isActive?: boolean }>`
 const menuItems = [
     { id: "home", label: "Home", number: "01" },
     { id: "about", label: "About", number: "02" },
-    { id: "skills", label: "Skills", number: "04" },
-    { id: "projects", label: "Projects", number: "03" },
+    { id: "skills", label: "Skills", number: "03" },
+    { id: "projects", label: "Projects", number: "04" },
     { id: "contact", label: "Contact", number: "05" },
 ];
 
@@ -100,7 +100,7 @@ export default function Menu() {
         setActiveSection(id);
         const element = document.getElementById(id);
         if (element) {
-            element.scrollIntoView({ behavior: "smooth" });
+            element.scrollIntoView({ behavior: "smooth", block: "start" });
         }
     };
 

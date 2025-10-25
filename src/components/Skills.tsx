@@ -29,7 +29,7 @@ const Wrapper = styled.section`
     --overlap: 8rem;
     position: relative;
     background: ${({ theme }) => theme.colors.primary};
-
+    scroll-margin-top: 120px;
     padding: calc(6rem + var(--overlap) / 2) 1rem 8rem;
     text-align: center;
     min-height: auto !important;
@@ -338,7 +338,7 @@ export default function Skills() {
 
             <Content>
                 <IntroText>
-                    Technologies I use to design, build, and ship polished
+                    Technologies I use to design, build and ship polished
                     products.
                 </IntroText>
             </Content>

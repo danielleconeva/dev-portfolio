@@ -4,6 +4,7 @@ const Wrapper = styled.div`
     position: relative;
     background-color: #f5f5f0;
     padding: 8rem 1rem 12rem 8rem;
+    scroll-margin-top: 70px;
 `;
 
 const SectionTitle = styled.h2`
