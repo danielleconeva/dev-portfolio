@@ -5,6 +5,9 @@ import cleartermsImg from "../assets/clearterms.png";
 import greenrideImg from "../assets/greenride.png";
 import studyhubImg from "../assets/studyhub.png";
 import ProjectModal, { type Project } from "./ProjectModal";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
+import type { Variants, Easing } from "framer-motion";
 
 const projectsData: Project[] = [
     {
@@ -113,12 +116,57 @@ export default function Projects() {
     const [selectedProject, setSelectedProject] = useState<Project | null>(
         null
     );
+    const ref = useRef<HTMLDivElement | null>(null);
+    const isInView = useInView(ref, { once: false, amount: 0.3 });
+
+    const smoothEase: Easing = [0.25, 0.6, 0.3, 1];
+
+    const titleVariants: Variants = {
+        hidden: { opacity: 0, y: 80 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                duration: 2.2,
+                ease: smoothEase,
+                delay: 0.4,
+            },
+        },
+    };
+
+    const introVariants: Variants = {
+        hidden: { opacity: 0, y: 40 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                duration: 2.4,
+                ease: smoothEase,
+                delay: 0.8,
+            },
+        },
+    };
 
     return (
-        <Wrapper id="projects">
-            <SectionTitle>Featured </SectionTitle>
-            <SectionTitle>Projects</SectionTitle>
-            <IntroText>Showcasing a selection of my recent work.</IntroText>
+        <Wrapper id="projects" ref={ref}>
+            <motion.div
+                variants={titleVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: false, amount: 0.3 }}
+            >
+                <SectionTitle>Featured</SectionTitle>
+                <SectionTitle>Projects</SectionTitle>
+            </motion.div>
+
+            <motion.div
+                variants={introVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: false, amount: 0.3 }}
+            >
+                <IntroText>Showcasing a selection of my recent work.</IntroText>
+            </motion.div>
 
             <ProjectsGrid>
                 {projectsData.map((project) => (
@@ -238,7 +286,6 @@ const ProjectImageWrapper = styled.div`
         );
         pointer-events: none;
 
-        /* match the rounding on the gradient overlay */
         border-radius: inherit;
     }
 `;

@@ -2,6 +2,132 @@ import styled from "styled-components";
 import { FiMail, FiMapPin } from "react-icons/fi";
 import { SiLinkedin, SiGithub } from "react-icons/si";
 import Footer from "./Footer";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
+import type { Variants, Easing } from "framer-motion";
+
+export default function Contact() {
+    const ref = useRef<HTMLDivElement | null>(null);
+    const isInView = useInView(ref, { once: false, amount: 0.3 });
+
+    const smoothEase: Easing = [0.25, 0.6, 0.3, 1];
+
+    const titleVariants: Variants = {
+        hidden: { opacity: 0, y: 60 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 1.4, ease: smoothEase },
+        },
+    };
+
+    const introVariants: Variants = {
+        hidden: { opacity: 0, y: 30 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 1.6, ease: smoothEase, delay: 0.2 },
+        },
+    };
+
+    const cardVariants: Variants = {
+        hidden: { opacity: 0, y: 40 },
+        visible: (i: number) => ({
+            opacity: 1,
+            y: 0,
+            transition: {
+                duration: 1,
+                ease: smoothEase,
+                delay: 0.3 + i * 0.2,
+            },
+        }),
+    };
+
+    const locationVariants: Variants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 1.3, ease: smoothEase, delay: 0.8 },
+        },
+    };
+
+    return (
+        <Wrapper id="contact" ref={ref}>
+            <motion.div
+                variants={titleVariants}
+                initial="hidden"
+                animate={isInView ? "visible" : "hidden"}
+            >
+                <SectionTitle>Contact</SectionTitle>
+            </motion.div>
+
+            <Content>
+                <motion.div
+                    variants={introVariants}
+                    initial="hidden"
+                    animate={isInView ? "visible" : "hidden"}
+                >
+                    <IntroText>Get in touch.</IntroText>
+                </motion.div>
+
+                <ContactGrid>
+                    {[
+                        {
+                            icon: <FiMail />,
+                            label: "Email",
+                            value: "dconewa@gmail.com",
+                            href: "mailto:dconewa@gmail.com",
+                        },
+                        {
+                            icon: <SiLinkedin />,
+                            label: "LinkedIn",
+                            value: "Let's network",
+                            href: "https://linkedin.com/in/daniella-coneva",
+                        },
+                        {
+                            icon: <SiGithub />,
+                            label: "GitHub",
+                            value: "Explore my code",
+                            href: "https://github.com/danielleconeva",
+                        },
+                    ].map((card, i) => (
+                        <motion.div
+                            key={card.label}
+                            variants={cardVariants}
+                            initial="hidden"
+                            animate={isInView ? "visible" : "hidden"}
+                            custom={i}
+                        >
+                            <ContactCard
+                                href={card.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {card.icon}
+                                <CardLabel>{card.label}</CardLabel>
+                                <CardValue>{card.value}</CardValue>
+                            </ContactCard>
+                        </motion.div>
+                    ))}
+                </ContactGrid>
+
+                <motion.div
+                    variants={locationVariants}
+                    initial="hidden"
+                    animate={isInView ? "visible" : "hidden"}
+                >
+                    <LocationInfo>
+                        <FiMapPin />
+                        <span>Based in Sofia, Bulgaria</span>
+                    </LocationInfo>
+                </motion.div>
+            </Content>
+
+            <Footer />
+        </Wrapper>
+    );
+}
 
 const Wrapper = styled.section`
     position: relative;
@@ -133,53 +259,3 @@ const LocationInfo = styled.div`
         margin-bottom: 0.4rem;
     }
 `;
-
-export default function Contact() {
-    return (
-        <Wrapper id="contact">
-            <SectionTitle>Contact</SectionTitle>
-
-            <Content>
-                <IntroText>Get in touch.</IntroText>
-
-                <ContactGrid>
-                    <ContactCard
-                        href="mailto:dconewa@gmail.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <FiMail />
-                        <CardLabel>Email</CardLabel>
-                        <CardValue>dconewa@gmail.com</CardValue>
-                    </ContactCard>
-
-                    <ContactCard
-                        href="https://linkedin.com/in/daniella-coneva"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <SiLinkedin />
-                        <CardLabel>LinkedIn</CardLabel>
-                        <CardValue>Let's network</CardValue>
-                    </ContactCard>
-
-                    <ContactCard
-                        href="https://github.com/danielleconeva"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <SiGithub />
-                        <CardLabel>GitHub</CardLabel>
-                        <CardValue>Explore my code</CardValue>
-                    </ContactCard>
-                </ContactGrid>
-
-                <LocationInfo>
-                    <FiMapPin />
-                    <span>Based in Sofia, Bulgaria</span>
-                </LocationInfo>
-            </Content>
-            <Footer />
-        </Wrapper>
-    );
-}

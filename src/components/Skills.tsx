@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
 import LogoLoop from "./LogoLoop";
 import {
     SiReact,
@@ -35,19 +37,22 @@ const Wrapper = styled.section`
     min-height: auto !important;
 `;
 
-const SectionTitle = styled.h2`
+const SectionTitle = styled(motion.h2)`
     font-family: ${({ theme }) => theme.fonts.headingMain};
     font-size: clamp(3rem, 10vw, 10rem);
     font-weight: 500;
     color: black;
     text-transform: uppercase;
-    letter-spacing: -0.02em;
-    line-height: 1;
     letter-spacing: 0.2rem;
+    line-height: 1;
     position: absolute;
     top: calc(-1 * var(--overlap) / 2);
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    text-align: center;
+    transform: none;
+
     margin: 0;
     z-index: 2;
     pointer-events: none;
@@ -55,11 +60,10 @@ const SectionTitle = styled.h2`
 
 const Content = styled.div`
     max-width: 980px;
-    margin: 0 auto;
-    margin-bottom: 3rem;
+    margin: 0 auto 3rem;
 `;
 
-const IntroText = styled.p`
+const IntroText = styled(motion.p)`
     font-family: ${({ theme }) => theme.fonts.regular};
     font-size: 1.7rem;
     color: rgba(0, 0, 0, 0.7);
@@ -73,18 +77,14 @@ const LogoLoopFullBleed = styled.div`
     left: 49.3%;
     width: 100vw;
     transform: translateX(-50vw);
-
     @supports (width: 100dvw) and (transform: translateX(-50dvw)) {
         width: 100dvw;
         transform: translateX(-50dvw);
     }
-
     overflow-x: hidden;
     overflow-y: visible;
-
     isolation: isolate;
     contain: paint;
-
     &::after {
         content: "";
         position: absolute;
@@ -102,7 +102,6 @@ const IconWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 1.2rem;
-
     padding: 6px;
 
     svg {
@@ -127,6 +126,7 @@ const TechLabel = styled.span`
     color: rgba(0, 0, 0, 0.6);
     white-space: nowrap;
 `;
+
 const techLogos = [
     {
         node: (
@@ -164,7 +164,6 @@ const techLogos = [
         ),
         title: "CSS3",
     },
-
     {
         node: (
             <IconWrapper>
@@ -219,7 +218,6 @@ const techLogos = [
         ),
         title: "Vite",
     },
-
     {
         node: (
             <IconWrapper>
@@ -256,7 +254,6 @@ const techLogos = [
         ),
         title: "MongoDB",
     },
-
     {
         node: (
             <IconWrapper>
@@ -332,12 +329,62 @@ const techLogos = [
 ];
 
 export default function Skills() {
+    const ref = useRef<HTMLDivElement | null>(null);
+    const [animationKey, setAnimationKey] = useState(0);
+
+    useEffect(() => {
+        const handleHashChange = () => {
+            if (window.location.hash === "#skills") {
+                setAnimationKey((k) => k + 1);
+                setTimeout(() => {
+                    ref.current?.scrollIntoView({ behavior: "smooth" });
+                }, 100);
+            }
+        };
+        window.addEventListener("hashchange", handleHashChange);
+        return () => window.removeEventListener("hashchange", handleHashChange);
+    }, []);
+
+    const smoothEase = [0.25, 1, 0.3, 1] as const;
+
+    const titleVariants = {
+        hidden: { opacity: 0, y: -80 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 2.5, ease: smoothEase, delay: 0.2 },
+        },
+    };
+
+    const introVariants = {
+        hidden: { opacity: 0, y: 60 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 2.2, ease: smoothEase, delay: 0.6 },
+        },
+    };
+
     return (
-        <Wrapper id="skills">
-            <SectionTitle>Skills</SectionTitle>
+        <Wrapper id="skills" ref={ref}>
+            <SectionTitle
+                key={`title-${animationKey}`}
+                variants={titleVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: false, amount: 0.3 }}
+            >
+                Skills
+            </SectionTitle>
 
             <Content>
-                <IntroText>
+                <IntroText
+                    key={`intro-${animationKey}`}
+                    variants={introVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: false, amount: 0.3 }}
+                >
                     Technologies I use to design, build and ship polished
                     products.
                 </IntroText>
