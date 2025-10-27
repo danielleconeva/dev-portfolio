@@ -5,7 +5,7 @@ import cleartermsImg from "../assets/clearterms.png";
 import greenrideImg from "../assets/greenride.png";
 import studyhubImg from "../assets/studyhub.png";
 import ProjectModal, { type Project } from "./ProjectModal";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { useRef } from "react";
 import type { Variants, Easing } from "framer-motion";
 
@@ -117,7 +117,6 @@ export default function Projects() {
         null
     );
     const ref = useRef<HTMLDivElement | null>(null);
-    const isInView = useInView(ref, { once: false, amount: 0.3 });
 
     const smoothEase: Easing = [0.25, 0.6, 0.3, 1];
 
