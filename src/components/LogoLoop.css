@@ -106,3 +106,63 @@
         transition: none !important;
     }
 }
+
+@media (max-width: 768px) {
+    .logoloop {
+        overflow-x: hidden;
+        overflow-y: visible;
+        --logoloop-gap: 18px;
+        --logoloop-logoHeight: 29px;
+        padding: 0.6rem 0;
+    }
+
+    .logoloop__track {
+        display: flex;
+        width: max-content;
+        will-change: transform;
+    }
+
+    .logoloop__list {
+        display: flex;
+        align-items: center;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .logoloop__item {
+        margin-right: var(--logoloop-gap);
+        flex: 0 0 auto;
+    }
+
+    .logoloop__item img {
+        height: var(--logoloop-logoHeight);
+        width: auto;
+    }
+
+    section[id*="skills"],
+    section[id*="tech"],
+    section[id*="tools"],
+    .skills-section {
+        overflow-x: hidden;
+    }
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+}
+
+@media (min-width: 1600px) {
+    .logoloop {
+        --logoloop-gap: 40px;
+        --logoloop-logoHeight: 34px;
+    }
+}
+
+@media (min-width: 1900px) {
+    .logoloop {
+        --logoloop-gap: 48px;
+        --logoloop-logoHeight: 40px;
+    }
+}

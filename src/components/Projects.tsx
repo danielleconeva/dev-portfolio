@@ -219,6 +219,22 @@ const Wrapper = styled.div`
     padding-bottom: 6rem;
     background: white;
     scroll-margin-top: 80px;
+
+    @media (max-width: 1200px) {
+        padding: 3rem 2rem 5rem;
+    }
+
+    @media (max-width: 768px) {
+        padding: 2.5rem 3rem 4rem;
+    }
+
+    @media (min-width: 1600px) {
+        padding: 6rem 5rem 8rem;
+    }
+
+    @media (min-width: 1900px) {
+        padding: 8rem 6rem 10rem;
+    }
 `;
 
 const SectionTitle = styled.h2`
@@ -233,6 +249,44 @@ const SectionTitle = styled.h2`
         margin-top: -3rem;
         padding-left: 7rem;
     }
+
+    @media (max-width: 1200px) {
+        font-size: 6rem;
+        &:nth-of-type(2) {
+            margin-top: -2rem;
+            padding-left: 4rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        font-size: 4.2rem;
+        padding-left: 0;
+        text-align: center;
+        margin-top: 2rem;
+
+        &:nth-of-type(2) {
+            margin-top: -1rem;
+            padding-left: 0;
+        }
+    }
+
+    @media (min-width: 1600px) {
+        font-size: 10rem;
+
+        &:nth-of-type(2) {
+            margin-top: -4rem;
+            padding-left: 9rem;
+        }
+    }
+
+    @media (min-width: 1900px) {
+        font-size: 12rem;
+
+        &:nth-of-type(2) {
+            margin-top: -5rem;
+            padding-left: 11rem;
+        }
+    }
 `;
 
 const IntroText = styled.p`
@@ -241,6 +295,28 @@ const IntroText = styled.p`
     color: black;
     margin: 0 0 5rem 4rem;
     font-weight: 200;
+
+    @media (max-width: 1200px) {
+        font-size: 1.4rem;
+        margin: 0 0 4rem 2rem;
+    }
+
+    @media (max-width: 768px) {
+        font-size: 1.1rem;
+        margin: 1rem auto 4rem;
+        text-align: center;
+        max-width: 90%;
+    }
+
+    @media (min-width: 1600px) {
+        font-size: 2rem;
+        margin: 0 0 6rem 5rem;
+    }
+
+    @media (min-width: 1900px) {
+        font-size: 2.3rem;
+        margin: 0 0 7rem 6rem;
+    }
 `;
 
 const ProjectsGrid = styled.div`
@@ -248,6 +324,27 @@ const ProjectsGrid = styled.div`
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
     margin: 0 2rem 4rem 3rem;
+
+    @media (max-width: 1200px) {
+        grid-template-columns: repeat(2, 1fr);
+        margin: 0 1.5rem 3rem 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        margin: 0 0 3rem 0;
+    }
+
+    @media (min-width: 1600px) {
+        gap: 2.8rem;
+        margin: 0 3rem 5rem 4rem;
+    }
+
+    @media (min-width: 1900px) {
+        gap: 3rem;
+        margin: 0 4rem 6rem 5rem;
+    }
 `;
 
 const ProjectCard = styled.div`
@@ -258,12 +355,28 @@ const ProjectCard = styled.div`
     overflow: hidden;
     height: 960px;
     border-radius: 28px 28px 0 0;
-
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform;
 
     &:hover {
         transform: translateY(-12px);
+    }
+
+    @media (max-width: 1200px) {
+        height: 780px;
+    }
+
+    @media (max-width: 768px) {
+        height: auto;
+        border-radius: 24px;
+    }
+
+    @media (min-width: 1600px) {
+        height: 1100px;
+    }
+
+    @media (min-width: 1900px) {
+        height: 1250px;
     }
 `;
 
@@ -272,7 +385,6 @@ const ProjectImageWrapper = styled.div`
     width: 100%;
     height: 300px;
     overflow: hidden;
-
     border-radius: 28px 28px 0 0;
 
     &::after {
@@ -285,8 +397,20 @@ const ProjectImageWrapper = styled.div`
             rgba(0, 0, 0, 0.5) 100%
         );
         pointer-events: none;
-
         border-radius: inherit;
+    }
+
+    @media (max-width: 768px) {
+        height: 240px;
+        border-radius: 24px 24px 0 0;
+    }
+
+    @media (min-width: 1600px) {
+        height: 360px;
+    }
+
+    @media (min-width: 1900px) {
+        height: 420px;
     }
 `;
 
@@ -309,6 +433,22 @@ const ProjectContent = styled.div`
     background: black;
     color: white;
     flex: 1;
+
+    @media (max-width: 1200px) {
+        padding: 2rem;
+    }
+
+    @media (max-width: 768px) {
+        padding: 1.5rem;
+    }
+
+    @media (min-width: 1600px) {
+        padding: 3rem;
+    }
+
+    @media (min-width: 1900px) {
+        padding: 3.5rem;
+    }
 `;
 
 const ProjectNumber = styled.span`
@@ -318,6 +458,10 @@ const ProjectNumber = styled.span`
     letter-spacing: 0.3rem;
     color: rgba(255, 255, 255, 0.4);
     text-transform: uppercase;
+
+    @media (max-width: 768px) {
+        font-size: 0.7rem;
+    }
 `;
 
 const ProjectTitle = styled.h3`
@@ -328,6 +472,22 @@ const ProjectTitle = styled.h3`
     margin: 0;
     line-height: 1.1;
     letter-spacing: 0.1rem;
+
+    @media (max-width: 1200px) {
+        font-size: 1.9rem;
+    }
+
+    @media (max-width: 768px) {
+        font-size: 1.7rem;
+    }
+
+    @media (min-width: 1600px) {
+        font-size: 2.6rem;
+    }
+
+    @media (min-width: 1900px) {
+        font-size: 3rem;
+    }
 `;
 
 const ProjectOneLine = styled.p`
@@ -338,6 +498,10 @@ const ProjectOneLine = styled.p`
     margin: 0.2rem 0 0.5rem 0;
     text-transform: uppercase;
     letter-spacing: 0.08rem;
+
+    @media (max-width: 768px) {
+        font-size: 0.9rem;
+    }
 `;
 
 const ProjectDescription = styled.p`
@@ -347,6 +511,25 @@ const ProjectDescription = styled.p`
     color: rgba(255, 255, 255, 0.9);
     line-height: 1.7;
     margin: 0.5rem 0 0 0;
+
+    @media (max-width: 1200px) {
+        font-size: 1rem;
+    }
+
+    @media (max-width: 768px) {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    @media (min-width: 1600px) {
+        font-size: 1.3rem;
+        line-height: 1.85;
+    }
+
+    @media (min-width: 1900px) {
+        font-size: 1.5rem;
+        line-height: 1.9;
+    }
 `;
 
 const DetailsButton = styled.button`
@@ -381,6 +564,12 @@ const DetailsButton = styled.button`
             transform: translateX(6px);
         }
     }
+
+    @media (max-width: 768px) {
+        font-size: 1rem;
+        letter-spacing: 0.1rem;
+        padding-top: 0.8rem;
+    }
 `;
 
 const GitHubButton = styled.a`
@@ -409,5 +598,23 @@ const GitHubButton = styled.a`
         background: rgba(160, 160, 159, 0.09);
         border-color: rgba(0, 0, 0, 0.4);
         gap: 1.2rem;
+    }
+
+    @media (max-width: 768px) {
+        padding: 1rem 2rem;
+        font-size: 0.75rem;
+        letter-spacing: 0.25rem;
+    }
+
+    @media (min-width: 1600px) {
+        padding: 2rem 3.5rem;
+        font-size: 1rem;
+        letter-spacing: 0.45rem;
+    }
+
+    @media (min-width: 1900px) {
+        padding: 2.4rem 4rem;
+        font-size: 1.1rem;
+        letter-spacing: 0.5rem;
     }
 `;

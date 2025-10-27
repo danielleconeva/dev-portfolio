@@ -128,13 +128,24 @@ export default function Contact() {
         </Wrapper>
     );
 }
-
 const Wrapper = styled.section`
     position: relative;
     background: black;
     padding: 6rem 1rem 0;
     text-align: center;
     min-height: auto !important;
+
+    @media (max-width: 768px) {
+        padding: 4rem 1rem 0;
+    }
+
+    @media (min-width: 1600px) {
+        padding: 8rem 2rem 0;
+    }
+
+    @media (min-width: 1900px) {
+        padding: 10rem 3rem 0;
+    }
 `;
 
 const SectionTitle = styled.h2`
@@ -147,11 +158,36 @@ const SectionTitle = styled.h2`
     line-height: 1;
     letter-spacing: 0.2rem;
     margin: -1rem 0 1rem 0;
+
+    @media (max-width: 768px) {
+        font-size: 4.2rem;
+        margin: 1rem 0 1rem 0;
+    }
+
+    @media (min-width: 1600px) {
+        font-size: 7rem;
+    }
+
+    @media (min-width: 1900px) {
+        font-size: 8rem;
+    }
 `;
 
 const Content = styled.div`
     max-width: 980px;
     margin: 0 auto;
+
+    @media (max-width: 768px) {
+        max-width: 90%;
+    }
+
+    @media (min-width: 1600px) {
+        max-width: 1180px;
+    }
+
+    @media (min-width: 1900px) {
+        max-width: 1380px;
+    }
 `;
 
 const IntroText = styled.p`
@@ -161,6 +197,19 @@ const IntroText = styled.p`
     margin-bottom: 1rem;
     margin-top: 2rem;
     font-weight: 200;
+
+    @media (max-width: 768px) {
+        font-size: 1.1rem;
+        margin-top: 1.5rem;
+    }
+
+    @media (min-width: 1600px) {
+        font-size: 1.6rem;
+    }
+
+    @media (min-width: 1900px) {
+        font-size: 1.8rem;
+    }
 `;
 
 const ContactGrid = styled.div`
@@ -171,6 +220,15 @@ const ContactGrid = styled.div`
 
     @media (max-width: 768px) {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    @media (min-width: 1600px) {
+        gap: 2.5rem;
+    }
+
+    @media (min-width: 1900px) {
+        gap: 3rem;
     }
 `;
 
@@ -220,6 +278,30 @@ const ContactCard = styled.a`
         color: rgba(255, 255, 255, 0.7);
         transition: color 0.4s ease;
     }
+
+    @media (max-width: 768px) {
+        padding: 2rem 1.5rem;
+
+        svg {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (min-width: 1600px) {
+        padding: 3rem 2.5rem;
+
+        svg {
+            font-size: 3rem;
+        }
+    }
+
+    @media (min-width: 1900px) {
+        padding: 3.5rem 3rem;
+
+        svg {
+            font-size: 3.5rem;
+        }
+    }
 `;
 
 const CardLabel = styled.span`
@@ -229,6 +311,18 @@ const CardLabel = styled.span`
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.5);
+
+    @media (max-width: 768px) {
+        font-size: 0.7rem;
+    }
+
+    @media (min-width: 1600px) {
+        font-size: 0.85rem;
+    }
+
+    @media (min-width: 1900px) {
+        font-size: 1rem;
+    }
 `;
 
 const CardValue = styled.span`
@@ -236,6 +330,18 @@ const CardValue = styled.span`
     font-size: 1.1rem;
     font-weight: 400;
     color: rgba(255, 255, 255, 0.9);
+
+    @media (max-width: 768px) {
+        font-size: 1rem;
+    }
+
+    @media (min-width: 1600px) {
+        font-size: 1.3rem;
+    }
+
+    @media (min-width: 1900px) {
+        font-size: 1.5rem;
+    }
 `;
 
 const LocationInfo = styled.div`
@@ -257,5 +363,29 @@ const LocationInfo = styled.div`
         font-size: 1.1rem;
         color: rgba(255, 255, 255, 0.683);
         margin-bottom: 0.4rem;
+    }
+
+    @media (max-width: 768px) {
+        font-size: 0.9rem;
+
+        svg {
+            font-size: 1rem;
+        }
+    }
+
+    @media (min-width: 1600px) {
+        font-size: 1.2rem;
+
+        svg {
+            font-size: 1.3rem;
+        }
+    }
+
+    @media (min-width: 1900px) {
+        font-size: 1.4rem;
+
+        svg {
+            font-size: 1.5rem;
+        }
     }
 `;

@@ -35,6 +35,21 @@ const Wrapper = styled.section`
     padding: calc(6rem + var(--overlap) / 2) 1rem 8rem;
     text-align: center;
     min-height: auto !important;
+
+    @media (max-width: 768px) {
+        --overlap: 4rem;
+        padding: calc(4rem + var(--overlap) / 2) 1rem 5rem;
+    }
+
+    @media (min-width: 1600px) {
+        --overlap: 10rem;
+        padding: calc(8rem + var(--overlap) / 2) 1rem 10rem;
+    }
+
+    @media (min-width: 1900px) {
+        --overlap: 12rem;
+        padding: calc(10rem + var(--overlap) / 2) 1rem 12rem;
+    }
 `;
 
 const SectionTitle = styled(motion.h2)`
@@ -56,11 +71,48 @@ const SectionTitle = styled(motion.h2)`
     margin: 0;
     z-index: 2;
     pointer-events: none;
+
+    @media (max-width: 768px) {
+        font-size: clamp(5rem, 12vw, 6rem);
+        letter-spacing: 0.1rem;
+        z-index: 6;
+        top: calc(-3 * var(--overlap) / 4);
+        position: relative;
+    }
+
+    @media (max-width: 1200px) and (min-width: 769px) {
+        font-size: 7rem;
+    }
+    @media (min-width: 1600px) {
+        font-size: 12rem;
+        letter-spacing: 0.25rem;
+    }
+
+    @media (min-width: 1900px) {
+        font-size: 14rem;
+        letter-spacing: 0.3rem;
+    }
 `;
 
 const Content = styled.div`
     max-width: 980px;
     margin: 0 auto 3rem;
+
+    @media (max-width: 768px) {
+        max-width: 100%;
+        margin: 0 auto 2rem;
+        padding: 0 1rem;
+    }
+
+    @media (min-width: 1600px) {
+        max-width: 1180px;
+        margin: 0 auto 4rem;
+    }
+
+    @media (min-width: 1900px) {
+        max-width: 1380px;
+        margin: 0 auto 5rem;
+    }
 `;
 
 const IntroText = styled(motion.p)`
@@ -70,6 +122,24 @@ const IntroText = styled(motion.p)`
     margin-bottom: 6rem;
     font-weight: 200;
     margin-top: -1.5rem;
+
+    @media (max-width: 768px) {
+        font-size: 1.1rem;
+        margin-bottom: 3rem;
+        margin-top: 1rem;
+    }
+
+    @media (min-width: 1600px) {
+        font-size: 2rem;
+        margin-bottom: 7rem;
+        margin-top: -2rem;
+    }
+
+    @media (min-width: 1900px) {
+        font-size: 2.3rem;
+        margin-bottom: 8rem;
+        margin-top: -2.5rem;
+    }
 `;
 
 const LogoLoopFullBleed = styled.div`
@@ -115,6 +185,33 @@ const IconWrapper = styled.div`
         color: rgba(0, 0, 0, 1);
         transform: translateY(-2px) scale(1.05);
     }
+
+    @media (max-width: 768px) {
+        gap: 0.8rem;
+        padding: 4px;
+
+        svg {
+            font-size: 56px;
+        }
+    }
+
+    @media (min-width: 1600px) {
+        gap: 1.4rem;
+        padding: 8px;
+
+        svg {
+            font-size: 104px;
+        }
+    }
+
+    @media (min-width: 1900px) {
+        gap: 1.6rem;
+        padding: 10px;
+
+        svg {
+            font-size: 120px;
+        }
+    }
 `;
 
 const TechLabel = styled.span`
@@ -125,6 +222,21 @@ const TechLabel = styled.span`
     text-transform: uppercase;
     color: rgba(0, 0, 0, 0.6);
     white-space: nowrap;
+
+    @media (max-width: 768px) {
+        font-size: 0.65rem;
+        letter-spacing: 0.06em;
+    }
+
+    @media (min-width: 1600px) {
+        font-size: 0.9rem;
+        letter-spacing: 0.09em;
+    }
+
+    @media (min-width: 1900px) {
+        font-size: 1rem;
+        letter-spacing: 0.1em;
+    }
 `;
 
 const techLogos = [

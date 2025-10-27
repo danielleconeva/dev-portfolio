@@ -5,9 +5,33 @@ import { motion } from "framer-motion";
 const MenuContainer = styled.nav`
     display: flex;
     align-items: center;
+    justify-content: center;
     padding: 0 5rem;
     z-index: 100;
-    margin: 5rem 10rem 3rem 7rem;
+    margin: 0;
+    flex: 1;
+
+    @media (max-width: 768px) {
+        padding: 0 2rem;
+        margin: 0.5rem 0 1rem 2.6rem;
+        flex: unset;
+        justify-content: flex-start;
+    }
+
+    @media (max-width: 1200px) and (min-width: 769px) {
+        padding: 0 2rem;
+        margin: 2rem 0 -5rem 5.5rem;
+        flex: unset;
+        justify-content: flex-start;
+    }
+
+    @media (min-width: 1600px) {
+        padding: 0 6rem;
+    }
+
+    @media (min-width: 1900px) {
+        padding: 0 7rem;
+    }
 `;
 
 const MenuList = styled(motion.ul)`
@@ -17,6 +41,21 @@ const MenuList = styled(motion.ul)`
     display: flex;
     flex-direction: column;
     gap: 0.6rem;
+    justify-content: center;
+    height: 100%;
+
+    @media (max-width: 768px) {
+        gap: 0.6rem;
+        height: auto;
+    }
+
+    @media (min-width: 1600px) {
+        gap: 0.75rem;
+    }
+
+    @media (min-width: 1900px) {
+        gap: 0.9rem;
+    }
 `;
 
 const MenuItem = styled(motion.li)`
@@ -64,6 +103,33 @@ const MenuLink = styled(motion.a)<{ $isActive?: boolean }>`
             left: 0;
         }
     `}
+
+    @media (max-width: 768px) {
+        font-size: 2.4rem;
+
+        &::before {
+            bottom: 0.3rem;
+            height: 1.5px;
+        }
+    }
+
+    @media (min-width: 1600px) {
+        font-size: 5rem;
+
+        &::before {
+            bottom: 0.6rem;
+            height: 2.5px;
+        }
+    }
+
+    @media (min-width: 1900px) {
+        font-size: 5.8rem;
+
+        &::before {
+            bottom: 0.7rem;
+            height: 3px;
+        }
+    }
 `;
 
 const MenuNumber = styled(motion.span)<{ $isActive?: boolean }>`
@@ -78,6 +144,22 @@ const MenuNumber = styled(motion.span)<{ $isActive?: boolean }>`
     transform: translateY(-50%);
     opacity: ${({ $isActive }) => ($isActive ? "1" : "0.3")};
     transition: all 0.5s ease;
+
+    @media (max-width: 768px) {
+        font-size: 0.65rem;
+        left: -2.5rem;
+        letter-spacing: 0.2em;
+    }
+
+    @media (min-width: 1600px) {
+        font-size: 1rem;
+        left: -5rem;
+    }
+
+    @media (min-width: 1900px) {
+        font-size: 1.1rem;
+        left: -6rem;
+    }
 `;
 
 const menuItems = [

@@ -24,12 +24,43 @@ const CursiveHeading = styled(motion.h1)`
     font-size: 3rem;
     font-weight: 100;
     margin-bottom: -3rem;
+
+    @media (max-width: 768px) {
+        font-size: 2rem;
+        margin-bottom: -1rem;
+    }
+
+    @media (max-width: 1200px) and (min-width: 769px) {
+        min-height: auto;
+    }
+
+    @media (min-width: 1600px) {
+        font-size: 3.5rem;
+        margin-bottom: -3.5rem;
+    }
+
+    @media (min-width: 1900px) {
+        font-size: 4rem;
+        margin-bottom: -4rem;
+    }
 `;
 
 const MainHeading = styled(motion.h1)`
     font-family: ${({ theme }) => theme.fonts.headingMain};
     font-size: 10rem;
     font-weight: 400;
+
+    @media (max-width: 768px) {
+        font-size: 4.7rem;
+    }
+
+    @media (min-width: 1600px) {
+        font-size: 12rem;
+    }
+
+    @media (min-width: 1900px) {
+        font-size: 14rem;
+    }
 `;
 
 const Description = styled(motion.div)`
@@ -38,6 +69,21 @@ const Description = styled(motion.div)`
     font-weight: 100;
     opacity: 0.7;
     margin: -1rem 0 0 0.4rem;
+
+    @media (max-width: 768px) {
+        font-size: 1.2rem;
+        margin: 0.2rem 0 1rem 0.4rem;
+    }
+
+    @media (min-width: 1600px) {
+        font-size: 1.75rem;
+        margin: -1.2rem 0 0 0.5rem;
+    }
+
+    @media (min-width: 1900px) {
+        font-size: 2rem;
+        margin: -1.5rem 0 0 0.6rem;
+    }
 `;
 
 const Divider = styled(motion.hr)`
@@ -46,6 +92,21 @@ const Divider = styled(motion.hr)`
     border-top: 1px solid rgba(255, 255, 255, 0.6);
     margin: 1.2rem 0 1.2rem 0.4rem;
     box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+
+    @media (max-width: 768px) {
+        width: 100px;
+        margin: 1.1rem 0 1.1rem 0.4rem;
+    }
+
+    @media (min-width: 1600px) {
+        width: 170px;
+        margin: 1.5rem 0 1.5rem 0.5rem;
+    }
+
+    @media (min-width: 1900px) {
+        width: 200px;
+        margin: 1.8rem 0 1.8rem 0.6rem;
+    }
 `;
 
 const WelcomeText = styled(motion.p)`
@@ -68,18 +129,65 @@ const WelcomeText = styled(motion.p)`
     -webkit-background-clip: text;
     color: transparent;
     animation: ${shine} 15s ease-in-out infinite;
+
+    @media (max-width: 768px) {
+        font-size: 1.2rem;
+        margin-top: 1rem;
+    }
+
+    @media (min-width: 1600px) {
+        font-size: 1.75rem;
+        margin-top: 1.5rem;
+        margin-left: 0.5rem;
+    }
+
+    @media (min-width: 1900px) {
+        font-size: 2rem;
+        margin-top: 1.8rem;
+        margin-left: 0.6rem;
+    }
 `;
 
 const HeadingWrapper = styled.div`
     max-width: 680px;
     margin: 10rem 0 0 8rem;
     padding: 4rem;
+
+    @media (max-width: 768px) {
+        max-width: 100%;
+        margin: 6rem 0 0 0.2rem;
+    }
+
+    @media (max-width: 1200px) and (min-width: 769px) {
+        margin: 2rem 0 0 3rem;
+    }
+
+    @media (min-width: 1600px) {
+        max-width: 820px;
+        margin: 12rem 0 0 10rem;
+        padding: 5rem;
+    }
+
+    @media (min-width: 1900px) {
+        max-width: 960px;
+        margin: 14rem 0 0 12rem;
+        padding: 6rem;
+    }
 `;
 
 const IntroWrapper = styled.div`
     display: flex;
     position: relative;
     min-height: 100vh;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
+
+    @media (max-width: 1200px) and (min-width: 769px) {
+        flex-direction: column;
+        padding: 6rem 2rem;
+    }
 `;
 
 const ScrollIndicator = styled(motion.div)`
@@ -114,6 +222,42 @@ const ScrollIndicator = styled(motion.div)`
         text-transform: uppercase;
         color: rgba(255, 255, 255, 0.4);
         writing-mode: vertical-rl;
+    }
+
+    @media (max-width: 768px) {
+        bottom: 2.9rem;
+
+        &::before {
+            height: 30px;
+        }
+
+        span {
+            font-size: 0.8rem;
+        }
+    }
+
+    @media (min-width: 1600px) {
+        bottom: 4rem;
+
+        &::before {
+            height: 50px;
+        }
+
+        span {
+            font-size: 0.85rem;
+        }
+    }
+
+    @media (min-width: 1900px) {
+        bottom: 5rem;
+
+        &::before {
+            height: 60px;
+        }
+
+        span {
+            font-size: 0.95rem;
+        }
     }
 `;
 

@@ -86,7 +86,6 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
         </ModalOverlay>
     );
 }
-
 const ModalOverlay = styled(motion.div)`
     position: fixed;
     inset: 0;
@@ -97,6 +96,18 @@ const ModalOverlay = styled(motion.div)`
     justify-content: center;
     padding: 2rem;
     backdrop-filter: blur(14px);
+
+    @media (max-width: 768px) {
+        padding: 3rem 2rem;
+    }
+
+    @media (min-width: 1600px) {
+        padding: 3rem;
+    }
+
+    @media (min-width: 1900px) {
+        padding: 4rem;
+    }
 `;
 
 const ModalContainer = styled(motion.div)`
@@ -111,6 +122,21 @@ const ModalContainer = styled(motion.div)`
     flex-direction: column;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.2);
+
+    @media (max-width: 768px) {
+        max-width: 100%;
+        border-radius: 16px;
+    }
+
+    @media (min-width: 1600px) {
+        max-width: 1300px;
+        border-radius: 24px;
+    }
+
+    @media (min-width: 1900px) {
+        max-width: 1500px;
+        border-radius: 28px;
+    }
 `;
 
 const ModalHeader = styled.div`
@@ -119,6 +145,18 @@ const ModalHeader = styled.div`
     color: #1a1a1a;
     padding: 3rem 3.5rem 2rem 3.5rem;
     border-bottom: 1.2px solid rgba(0, 0, 0, 0.18);
+
+    @media (max-width: 768px) {
+        padding: 2rem 1.5rem 1.5rem 1.5rem;
+    }
+
+    @media (min-width: 1600px) {
+        padding: 4rem 4rem 3rem 4rem;
+    }
+
+    @media (min-width: 1900px) {
+        padding: 5rem 5rem 4rem 5rem;
+    }
 `;
 
 const CloseButton = styled.button`
@@ -143,6 +181,25 @@ const CloseButton = styled.button`
         background: rgba(44, 44, 44, 0.07);
         transform: scale(1.1);
     }
+
+    @media (max-width: 768px) {
+        top: 1.5rem;
+        right: 1.5rem;
+        width: 46px;
+        height: 38px;
+    }
+
+    @media (min-width: 1600px) {
+        width: 70px;
+        height: 60px;
+        font-size: 1.8rem;
+    }
+
+    @media (min-width: 1900px) {
+        width: 80px;
+        height: 70px;
+        font-size: 2rem;
+    }
 `;
 
 const ModalNumber = styled.span`
@@ -154,6 +211,18 @@ const ModalNumber = styled.span`
     text-transform: uppercase;
     display: block;
     margin-bottom: 1rem;
+
+    @media (max-width: 768px) {
+        font-size: 0.85rem;
+    }
+
+    @media (min-width: 1600px) {
+        font-size: 1.1rem;
+    }
+
+    @media (min-width: 1900px) {
+        font-size: 1.25rem;
+    }
 `;
 
 const ModalTitle = styled.h2`
@@ -164,6 +233,18 @@ const ModalTitle = styled.h2`
     letter-spacing: -0.02rem;
     line-height: 1.2;
     color: #1a1a1a;
+
+    @media (max-width: 768px) {
+        font-size: 2.4rem;
+    }
+
+    @media (min-width: 1600px) {
+        font-size: 4rem;
+    }
+
+    @media (min-width: 1900px) {
+        font-size: 4.5rem;
+    }
 `;
 
 const ModalSubtitle = styled.p`
@@ -174,17 +255,53 @@ const ModalSubtitle = styled.p`
     margin: 0.8rem 0 0 0;
     text-transform: uppercase;
     letter-spacing: 0.15rem;
+
+    @media (max-width: 768px) {
+        font-size: 1rem;
+    }
+
+    @media (min-width: 1600px) {
+        font-size: 1.3rem;
+    }
+
+    @media (min-width: 1900px) {
+        font-size: 1.5rem;
+    }
 `;
 
 const ModalScrollContent = styled.div`
     overflow-y: auto;
     flex: 1;
     padding: 3rem 3.5rem;
+
+    @media (max-width: 768px) {
+        padding: 2rem 2rem;
+    }
+
+    @media (min-width: 1600px) {
+        padding: 4rem;
+    }
+
+    @media (min-width: 1900px) {
+        padding: 5rem;
+    }
 `;
 
 const Section = styled.section`
     margin-bottom: 3rem;
     min-height: auto !important;
+
+    @media (max-width: 768px) {
+        margin-bottom: 2rem;
+    }
+
+    @media (min-width: 1600px) {
+        margin-bottom: 3.5rem;
+    }
+
+    @media (min-width: 1900px) {
+        margin-bottom: 4rem;
+    }
 `;
 
 const SectionTitleModal = styled.h3`
@@ -195,6 +312,21 @@ const SectionTitleModal = styled.h3`
     text-transform: uppercase;
     color: rgba(0, 0, 0, 0.5);
     margin: 4rem 0 2rem 0;
+
+    @media (max-width: 768px) {
+        font-size: 1.3rem;
+        margin: 2.5rem 0 1.5rem 0;
+    }
+
+    @media (min-width: 1600px) {
+        font-size: 1.9rem;
+        margin: 4.5rem 0 2.5rem 0;
+    }
+
+    @media (min-width: 1900px) {
+        font-size: 2.1rem;
+        margin: 5rem 0 3rem 0;
+    }
 `;
 
 const Description = styled.p`
@@ -208,6 +340,21 @@ const Description = styled.p`
     &:last-child {
         margin-bottom: 0;
     }
+
+    @media (max-width: 768px) {
+        font-size: 1.1rem;
+        line-height: 1.7;
+    }
+
+    @media (min-width: 1600px) {
+        font-size: 1.5rem;
+        line-height: 2.1;
+    }
+
+    @media (min-width: 1900px) {
+        font-size: 1.7rem;
+        line-height: 2.3;
+    }
 `;
 
 const TechGrid = styled.div`
@@ -215,6 +362,18 @@ const TechGrid = styled.div`
     flex-wrap: wrap;
     gap: 1rem;
     margin-bottom: 2rem;
+
+    @media (max-width: 768px) {
+        gap: 0.7rem;
+    }
+
+    @media (min-width: 1600px) {
+        gap: 1.2rem;
+    }
+
+    @media (min-width: 1900px) {
+        gap: 1.4rem;
+    }
 `;
 
 const TechTag = styled.div`
@@ -237,61 +396,19 @@ const TechTag = styled.div`
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 2px 7px rgba(0, 0, 0, 0.04);
 
-    &::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 200%;
-        height: 100%;
-        background: linear-gradient(
-            120deg,
-            transparent 30%,
-            rgba(255, 255, 255, 0.4) 50%,
-            transparent 70%
-        );
-        transition: transform 0.6s ease;
+    @media (max-width: 768px) {
+        padding: 0.7rem 1.3rem;
+        font-size: 0.75rem;
     }
 
-    &::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 50%;
-        background: linear-gradient(
-            to bottom,
-            rgba(255, 255, 255, 0.6),
-            transparent
-        );
-        border-radius: 10px 10px 0 0;
-        pointer-events: none;
+    @media (min-width: 1600px) {
+        padding: 1rem 1.8rem;
+        font-size: 0.9rem;
     }
 
-    &:hover::before {
-        transform: translateX(50%);
-    }
-
-    &:hover {
-        transform: translateY(-3px);
-        background: linear-gradient(
-            135deg,
-            rgba(255, 255, 255, 0.95) 0%,
-            rgba(240, 240, 240, 0.85) 100%
-        );
-        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
-        border-color: rgba(0, 0, 0, 0.12);
-    }
-
-    &:active {
-        transform: translateY(-1px);
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    & > * {
-        position: relative;
-        z-index: 1;
+    @media (min-width: 1900px) {
+        padding: 1.2rem 2rem;
+        font-size: 1rem;
     }
 `;
 
@@ -300,6 +417,20 @@ const LinkButtons = styled.div`
     gap: 1.5rem;
     flex-wrap: wrap;
     margin: 0.5rem 0 4rem 0;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 2.5rem;
+    }
+
+    @media (min-width: 1600px) {
+        gap: 2rem;
+    }
+
+    @media (min-width: 1900px) {
+        gap: 2.5rem;
+    }
 `;
 
 const LinkButton = styled.a`
@@ -323,36 +454,19 @@ const LinkButton = styled.a`
     transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 
-    &::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 200%;
-        height: 100%;
-        background: linear-gradient(
-            120deg,
-            transparent 30%,
-            rgba(255, 255, 255, 0.15) 50%,
-            transparent 70%
-        );
-        transition: transform 0.6s ease;
+    @media (max-width: 768px) {
+        padding: 1rem 2rem;
+        font-size: 0.85rem;
+        letter-spacing: 0.2rem;
     }
 
-    &:hover::before {
-        transform: translateX(50%);
+    @media (min-width: 1600px) {
+        padding: 1.4rem 3rem;
+        font-size: 1rem;
     }
 
-    &:hover {
-        transform: translateY(-3px) scale(1.03);
-        background: linear-gradient(135deg, #2a2a2a 0%, #121212 100%);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35),
-            0 0 10px rgba(255, 255, 255, 0.1);
-        border-color: rgba(255, 255, 255, 0.25);
-    }
-
-    &:active {
-        transform: scale(0.97);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    @media (min-width: 1900px) {
+        padding: 1.6rem 3.5rem;
+        font-size: 1.1rem;
     }
 `;
