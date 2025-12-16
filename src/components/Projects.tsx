@@ -774,39 +774,3 @@ const GitHubButton = styled.a`
         letter-spacing: 0.5rem;
     }
 `;
-
-const ModalOverlay = styled(motion.div)`
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-`;
-
-const ModalContent = styled(motion.div)`
-    background: white;
-    padding: 3rem;
-    border-radius: 20px;
-    max-width: 600px;
-    width: 90%;
-
-    h2 {
-        margin-top: 0;
-    }
-
-    button {
-        margin-top: 1rem;
-        padding: 0.8rem 2rem;
-        background: black;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 1rem;
-    }
-`;
