@@ -4,6 +4,7 @@ import { AnimatePresence } from "framer-motion";
 import cleartermsImg from "../assets/clearterms.png";
 import greenrideImg from "../assets/greenride.png";
 import studyhubImg from "../assets/studyhub.png";
+import lexiumImg from "../assets/lexium.png";
 import ProjectModal, { type Project } from "./ProjectModal";
 import { motion } from "framer-motion";
 import { useRef } from "react";
@@ -110,12 +111,50 @@ GreenRide presents a cohesive system that aligns front-end rigor with back-end c
         liveDemo: "https://studyhub-6b7d9.web.app",
         github: "https://github.com/danielleconeva/studyhub",
     },
+    {
+        id: 4,
+        number: "04",
+        title: "Lexium",
+        subtitle: "Digital Workspace for Law Firms",
+        shortDescription:
+            "Lexium is a platform for managing law firms’ internal workflow, built with React, TypeScript, Vite, styled-components, Redux Toolkit, React Router and Firebase (Authentication, Cloud Firestore, Hosting) — providing firm-specific workspaces for cases, hearings and tasks, dashboards for tracking workload and progress, an upcoming hearings schedule, and a public catalogue of anonymised case summaries with granular visibility controls.",
+        fullDescription: `
+        Lexium is a web-based portal for managing a law firm’s internal workflow — cases, hearings, and tasks — with a small, controlled public-facing layer for sharing anonymised case summaries. The application is built with React and TypeScript on Vite, structured with React Router for routing and Redux Toolkit for predictable state management. Styling is handled by styled-components with lucide-react icons, producing a cohesive, card-based UI with subtle gradients, hover effects, and glassy surfaces that stays usable and readable across screen sizes. The platform is backed by Firebase Authentication, Cloud Firestore, and Firebase Hosting, so authentication, data, and deployment all live inside the Firebase ecosystem.\n
+The client is organised around three main concerns: authentication, firm-scoped data, and UI orchestration. Authentication flows (register, login, global auth state) are implemented via a dedicated auth slice and a useAuth hook that wraps Firebase Authentication and exposes methods like register, login, and logout alongside the current user and loading state. Firm accounts are email/password–based, and each successful login yields a firm user whose uid is used as the firm identifier. All subsequent reads and writes to Firestore include this firmId, ensuring that every case and every task is automatically tied to a single firm, and that no firm can see the internal data of another.\n
+Domain data is managed through dedicated Redux slices and custom hooks. The cases slice holds the in-memory catalogue of CaseRecord objects — including fields such as firmId, firmName, caseNumber, caseYear, type, court, formation, status, isPublic, isStarred, initiationDate, clientName, opposingParty, partiesInitials, publicDescription, and hearingsChronology. The tasks slice tracks TaskRecord entries with caseId, firmId, title, status, dueDate, createdAt, and optional notes. Custom hooks like useCases and useTasks encapsulate all interaction with these slices: they orchestrate Firestore reads/writes, normalise data coming from the database, and expose high-level operations to components: load all firm cases, fetch a single case, create/update/delete a case, compute the next upcoming hearing, load tasks for a specific case, create and update tasks, and so on. Components never talk to Firestore directly — they simply call methods on these hooks, which in turn dispatch Redux actions and thunks.\n
+Routing is split into public and private areas. Public routes include the landing/public home (where login and registration live) and the entire public cases catalogue: /public-cases and /public-cases/:id. Private routes (/dashboard, /cases, /cases/new, /cases/:id, /cases/:id/edit, /case/:id/tasks, /upcoming) are guarded so that only authenticated firms can access them, while logged-in firms are kept away from login/register. A small set of layout-level components handles cross-cutting UI behaviour: GlobalLoader listens to multiple loading flags from the Redux slices and shows a central spinner overlay whenever auth, cases, or tasks are performing network work; a Redux-backed notification system surfaces success and error messages; and a reusable ConfirmModal component handles destructive actions like deleting tasks or cases.
+The dashboard consolidates multiple derived metrics from the cases and tasks slices through selector logic and mapping. A set of animated StatBadge components shows open cases, pending tasks, total cases, and overall task completion rate (percentage of tasks with status “Done”). A TaskProgressCard visualises progress via a gradient progress bar and summarises how many tasks are completed vs remaining. RecentCasesCard and RecentTasksCardboth connect back to the global Redux state, rely on helper formatting functions for dates, and render the latest records by sorting arrays from the store. The result is a single page that gives a partner or associate a quick picture of workload and upcoming responsibilities, driven entirely by reactive state derived from Firestore-backed slices.\n
+The cases module represents the core workflow of the app. /cases renders a responsive grid of CaseCard components — each one showing case type badges, court, status, next hearing date, and a star icon for marking important cases. Clicking the star triggers a handler passed down from the parent component, which calls useCases().updateCase to toggle the isStarred flag in Firestore and update Redux state, giving instant visual feedback. Create and edit flows are implemented as structured, multi-section forms: CaseIdentificationCard for case number and year; CaseDetailsCard for type, court, formation, and status; PartiesInvolvedCard for client and opposing party; ImportantDatesCard for initiation date and a dynamic list of hearings (each with date and time, with add/remove row logic); and NotesAndDescriptionCard for internal notes and public description. These cards are pure presentational components that receive values and setters as props, while the container page component holds the local React state and coordinates saving via the useCases hook.\n
+The case details view pulls data for a single case from Redux (via getFirmCaseById) and organises it into several specialised components. IntroductionCard presents the high-level status: case number/year, status, type, star status, visibility badge (“Public” vs “Private”), and client name. It also hosts management actions mapped to callbacks provided by the container: an edit button (navigates to /cases/:id/edit), an archive/reopen button (toggling the status between active and archived via Firestore/Redux updates), and a delete button that removes the case after confirmation. InformationCard renders core metadata (court, formation, initiation date, notes) with robust date formatting. NextHearingCard derives and validates the next hearing date and presents it in a visually emphasised card, gracefully handling cases with no upcoming hearings. TasksCard surfaces the tasks associated with that case by passing in task data from the tasks slice, sorts tasks by creation time, surfaces status badges and due dates, and links into the dedicated tasks board at /case/:id/tasks.
+The tasks module is centred on case-specific task boards. The /case/:id/tasks route fetches all tasks for the given case via the useTasks hook and groups them by status for presentation in three TaskColumn components: “To Do”, “In Progress”, and “Done”. Each column renders TaskCard entries showing the task title, due date, and action buttons for editing and deleting. Editing opens a TaskModal that is reused for both create and edit flows: it holds local component state for title, due date, and status; derives a simple validity flag via useMemo; and uses useTasks().createTask or useTasks().updateTask to persist changes. Upon success, Redux and Firestore are updated and a success notification is dispatched; errors are caught and passed to the notification system. Delete actions trigger ConfirmModal, and on confirmation the deleteTask method from useTasks is called, ensuring the same Redux–Firestore synchronisation and a clean UI refresh.\n
+The public area is intentionally read-only and anonymised. /public-cases uses the useCases hook to load only cases where isPublic is true, then renders them as PublicCaseCard components. Each card shows the firm name, case reference, type, court, status, and a computed next hearing date determined by computeNextHearing, which filters and sorts hearingsChronology entries to pick the earliest upcoming date. A top-level SearchBar allows visitors to search by case number, updating local React state and filtering the list of cases without needing extra network requests. /public-cases/:id reuses the same CaseRecord data as internal views but passes it into a dedicated set of public-safe components: GeneralInfoCard for firm name, core metadata, and initiation date; CaseInformationCard for court, formation, client initials (derived via a getInitials helper), and public description; PartiesCard for displaying parties using initials instead of full names; and HearingsCard for rendering a timeline of hearings with clearly formatted dates and times. The same Redux-managed cases data powers both internal and external views; the difference is purely in which fields are shown and how they’re anonymised.\n
+Throughout the application, state management and side effects remain deliberate and predictable. Redux Toolkit slices hold canonical state and define reducers and async thunks; custom hooks (useAuth, useCases, useTasks) expose that functionality to components in a cohesive way; selectors and helper functions map raw Firestore data into view-ready structures; and styled-components handle the UI layer with component-scoped styles, animations, and layout primitives. Firebase Authentication secures access, Cloud Firestore provides the single source of truth for firms, cases, hearings, and tasks, and Firebase Hosting serves the built Vite bundle as a single-page application. The result is a structured, maintainable React + Firebase stack that doesn’t just display data, but models a realistic law-firm workflow end-to-end — from registration and dashboards, through case and task management, to upcoming hearings and a controlled, anonymised public catalogue.
+
+`,
+        technologies: [
+            "React",
+            "TypeScript",
+            "Vite",
+            "React Router",
+            "Redux Toolkit",
+            "React Redux",
+            "styled-components",
+            "Firebase Authentication",
+            "Cloud Firestore",
+            "Firebase Hosting",
+            "React Portals",
+        ],
+        image: lexiumImg,
+        liveDemo: "https://lexium-7e457.web.app",
+        github: "https://github.com/danielleconeva/Lexium.git",
+    },
 ];
 
 export default function Projects() {
     const [selectedProject, setSelectedProject] = useState<Project | null>(
         null
     );
+    const [startIndex, setStartIndex] = useState(0);
     const ref = useRef<HTMLDivElement | null>(null);
 
     const smoothEase: Easing = [0.25, 0.6, 0.3, 1];
@@ -144,6 +183,24 @@ export default function Projects() {
                 delay: 0.8,
             },
         },
+    };
+
+    const handleNext = () => {
+        setStartIndex((prev) => (prev + 1) % projectsData.length);
+    };
+
+    const handlePrevious = () => {
+        setStartIndex(
+            (prev) => (prev - 1 + projectsData.length) % projectsData.length
+        );
+    };
+
+    const getVisibleProjects = () => {
+        const visible = [];
+        for (let i = 0; i < 3; i++) {
+            visible.push(projectsData[(startIndex + i) % projectsData.length]);
+        }
+        return visible;
     };
 
     return (
@@ -192,6 +249,47 @@ export default function Projects() {
                     </ProjectCard>
                 ))}
             </ProjectsGrid>
+
+            <CarouselWrapper>
+                <NavButton
+                    onClick={handlePrevious}
+                    aria-label="Previous project"
+                >
+                    ←
+                </NavButton>
+
+                <ProjectsCarouselGrid>
+                    {getVisibleProjects().map((project) => (
+                        <ProjectCard key={project.id}>
+                            <ProjectImageWrapper>
+                                <ProjectImage
+                                    src={project.image}
+                                    alt={project.title}
+                                />
+                            </ProjectImageWrapper>
+                            <ProjectContent>
+                                <ProjectNumber>{project.number}</ProjectNumber>
+                                <ProjectTitle>{project.title}</ProjectTitle>
+                                <ProjectOneLine>
+                                    {project.subtitle}
+                                </ProjectOneLine>
+                                <ProjectDescription>
+                                    {project.shortDescription}
+                                </ProjectDescription>
+                                <DetailsButton
+                                    onClick={() => setSelectedProject(project)}
+                                >
+                                    Details
+                                </DetailsButton>
+                            </ProjectContent>
+                        </ProjectCard>
+                    ))}
+                </ProjectsCarouselGrid>
+
+                <NavButton onClick={handleNext} aria-label="Next project">
+                    →
+                </NavButton>
+            </CarouselWrapper>
 
             <GitHubButton
                 href="https://github.com/danielleconeva"
@@ -335,6 +433,10 @@ const ProjectsGrid = styled.div`
         margin: 0 0 3rem 0;
     }
 
+    @media (min-width: 1400px) and (max-width: 1899px) {
+        display: none;
+    }
+
     @media (min-width: 1600px) {
         gap: 2.8rem;
         margin: 0 3rem 5rem 4rem;
@@ -343,6 +445,49 @@ const ProjectsGrid = styled.div`
     @media (min-width: 1900px) {
         gap: 3rem;
         margin: 0 4rem 6rem 5rem;
+    }
+`;
+
+const CarouselWrapper = styled.div`
+    display: none;
+
+    @media (min-width: 1400px) and (max-width: 1899px) {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        margin: 0 2rem 4rem 3rem;
+    }
+`;
+
+const ProjectsCarouselGrid = styled.div`
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    flex: 1;
+`;
+
+const NavButton = styled.button`
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: black;
+    color: white;
+    border: none;
+    font-size: 1.6rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+        background: rgba(0, 0, 0, 0.85);
+        transform: scale(1.1);
+    }
+
+    &:active {
+        transform: scale(0.95);
     }
 `;
 
@@ -385,6 +530,7 @@ const ProjectImageWrapper = styled.div`
     height: 300px;
     overflow: hidden;
     border-radius: 28px 28px 0 0;
+    flex-shrink: 0;
 
     &::after {
         content: "";
@@ -414,9 +560,11 @@ const ProjectImageWrapper = styled.div`
 `;
 
 const ProjectImage = styled.img`
+    display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
     transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 
     ${ProjectCard}:hover & {
@@ -425,7 +573,7 @@ const ProjectImage = styled.img`
 `;
 
 const ProjectContent = styled.div`
-    padding: 2.5rem;
+    padding: 2.3rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -510,17 +658,25 @@ const ProjectDescription = styled.p`
     color: rgba(255, 255, 255, 0.9);
     line-height: 1.7;
     margin: 0.5rem 0 0 0;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 12;
+    -webkit-box-orient: vertical;
 
     @media (max-width: 1200px) {
         font-size: 1rem;
+        -webkit-line-clamp: 8;
     }
 
     @media (max-width: 768px) {
         font-size: 0.95rem;
         line-height: 1.6;
+        -webkit-line-clamp: 7;
     }
 
-    @media (min-width: 1600px) {
+    @media (min-width: 1600px) and (max-width: 1899px) {
         font-size: 1.3rem;
         line-height: 1.85;
     }
@@ -548,6 +704,7 @@ const DetailsButton = styled.button`
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     margin-top: auto;
+    flex-shrink: 0;
 
     &::after {
         content: "→";
@@ -615,5 +772,41 @@ const GitHubButton = styled.a`
         padding: 2.4rem 4rem;
         font-size: 1.1rem;
         letter-spacing: 0.5rem;
+    }
+`;
+
+const ModalOverlay = styled(motion.div)`
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+`;
+
+const ModalContent = styled(motion.div)`
+    background: white;
+    padding: 3rem;
+    border-radius: 20px;
+    max-width: 600px;
+    width: 90%;
+
+    h2 {
+        margin-top: 0;
+    }
+
+    button {
+        margin-top: 1rem;
+        padding: 0.8rem 2rem;
+        background: black;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1rem;
     }
 `;
